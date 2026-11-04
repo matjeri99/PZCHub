@@ -1022,7 +1022,7 @@ startup().catch(e=>{try{renderAuth();toast(e.message||String(e));}catch(x){showF
   // Use HTTPS URLs that can load as ordinary <img> without login.
   const MEDIA = Object.freeze({
     putrajayaPhoto: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Iron_mosque_Putrajaya_at_night_2011.jpg',
-    zontes368gPhoto: 'https://www.sharpon.com/Tayoimg/DRP/DRPProducts/DRPPageIMG/2025368G/2025368G_004N2.jpg'
+    zontes368gPhoto: 'https://github.com/matjeri99/PZCHub/blob/main/assets/IMG20261031134636.jpg'
   });
 
   const style = document.createElement('style');
