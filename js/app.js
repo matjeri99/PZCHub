@@ -41,8 +41,8 @@ async function loginWithGoogle(){
  if(!window.ZTG_CONFIG.firebaseApiKey)throw Error('Firebase API Key belum diset.');
  const firebaseApp=window.firebase.apps.length?window.firebase.app():window.firebase.initializeApp({
   apiKey:window.ZTG_CONFIG.firebaseApiKey,
-  authDomain:'zontes-putrajaya-ride-hub.firebaseapp.com',
-  projectId:'zontes-putrajaya-ride-hub'
+  authDomain:'ztg-clubos-v2-staging.firebaseapp.com',
+  projectId:'ztg-clubos-v2-staging'
  });
  const auth=firebaseApp.auth();
  await auth.setPersistence(window.firebase.auth.Auth.Persistence.NONE);
