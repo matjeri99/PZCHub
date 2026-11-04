@@ -2,6 +2,6 @@
 // NEVER place Apps Script owner tokens, service-account keys or private secrets here.
 window.ZTG_CONFIG = Object.freeze({
   clubName: 'PUTRAJAYA ZONTES COMMUNITY',
-  firebaseApiKey: 'AIzaSyCC75Qx0MZ9sXZkBliOtJ0OhX9lCYr-d8k',
+  firebaseApiKey: 'AIzaSyAvD7LpPZB3owkOJIw9eM9vQ7kIgHwDego',
   apiBase: 'https://pzc-hub-gateway.matjeri99.workers.dev'
 });
