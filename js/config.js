@@ -3,5 +3,5 @@
 window.ZTG_CONFIG = Object.freeze({
   clubName: 'PUTRAJAYA ZONTES COMMUNITY',
   firebaseApiKey: 'AIzaSyCC75Qx0MZ9sXZkBliOtJ0OhX9lCYr-d8k',
-  apiBase: ''
+  apiBase: 'https://pzc-hub-gateway.matjeri99.workers.dev'
 });
