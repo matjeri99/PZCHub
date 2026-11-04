@@ -36,6 +36,24 @@ async function login(email,password,signup=false){const x=await authRequest(sign
  if(signup){await authRequest('accounts:sendOobCode',{requestType:'VERIFY_EMAIL',idToken:x.idToken});clearSession();
    toast('Akaun dicipta. Semak emel untuk pengesahan, kemudian login.');renderAuth();return;}
  await afterLogin();}
+async function loginWithGoogle(){
+ if(!window.firebase?.auth)throw Error('Modul Google Login belum dimuatkan. Cuba refresh halaman.');
+ if(!window.ZTG_CONFIG.firebaseApiKey)throw Error('Firebase API Key belum diset.');
+ const firebaseApp=window.firebase.apps.length?window.firebase.app():window.firebase.initializeApp({
+  apiKey:window.ZTG_CONFIG.firebaseApiKey,
+  authDomain:'zontes-putrajaya-ride-hub.firebaseapp.com',
+  projectId:'zontes-putrajaya-ride-hub'
+ });
+ const auth=firebaseApp.auth();
+ await auth.setPersistence(window.firebase.auth.Auth.Persistence.NONE);
+ const credential=await auth.signInWithPopup(new window.firebase.auth.GoogleAuthProvider());
+ const user=credential.user;
+ if(!user)throw Error('Google tidak mengembalikan akaun pengguna.');
+ const token=await user.getIdToken();
+ saveSession(token,user.refreshToken);
+ await auth.signOut();
+ await afterLogin();
+}
 async function afterLogin(){
  try{const b=await api('bootstrap');state.self=b.self;state.ready=true;state.view='home';await go('home');}
  catch(e){const message=e.message||'';if(/Sahkan emel/.test(message)){renderVerify(message);}else{clearSession();renderAuth();toast(message);}}
@@ -52,6 +70,7 @@ function renderAuth(){state.self=null;renderNav();$('pageTitle').textContent='We
  <div class="actions"><button class="btn ${sign?'alt':''}" data-act="authMode" data-id="login">Log Masuk</button><button class="btn ${sign?'':'alt'}" data-act="authMode" data-id="signup">Daftar Akaun</button></div><hr>
  <form data-form="auth"><label>Emel</label><input type="email" name="email" required autocomplete="email"><label>Kata laluan</label><input type="password" name="password" minlength="6" required autocomplete="${sign?'new-password':'current-password'}">
  <button class="btn" type="submit">${sign?'Cipta Akaun & Sahkan Emel':'Masuk ke Ride Hub'}</button></form>
+ <div class="actions" style="margin-top:12px"><button class="btn alt" type="button" data-act="googleLogin">Teruskan dengan Google</button></div>
  <p class="muted small">${sign?'Pautan pengesahan akan dihantar ke emel. Selepas sah, kembali dan log masuk.':'Belum ada akaun? Tekan Daftar Akaun. Jika lupa kata laluan, pilih Reset Password.'}</p>
  <button class="btn alt" data-act="resetPassword">Reset Password</button>
  <hr><a href="https://matjeri99.github.io/Ride_ZTGPutrajaya/" target="_blank" rel="noopener">Buka Ride Hub v1.0 (legacy)</a></section>`;
@@ -238,6 +257,7 @@ async function handleAction(button){const a=button.dataset.act,id=button.dataset
  if(a==='nav')return go(id);
  if(a==='logout'){clearSession();return renderAuth();}
  if(a==='authMode'){state.authMode=id;return renderAuth();}
+ if(a==='googleLogin'){await loginWithGoogle();return;}
  if(a==='refresh')return afterLogin();
  if(a==='resetPassword'){const email=prompt('Emel akaun untuk Reset Password:');if(email){await authRequest('accounts:sendOobCode',{requestType:'PASSWORD_RESET',email});toast('Jika akaun wujud, semak emel untuk reset password.');}return;}
  if(a==='sendVerify'){await authRequest('accounts:sendOobCode',{requestType:'VERIFY_EMAIL',idToken:state.idToken});toast('Emel pengesahan dihantar.');return;}
