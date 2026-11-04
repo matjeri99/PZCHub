@@ -14,7 +14,7 @@ const esc=s=>String(s==null?'':s).replace(/[\x26\x3c\x3e\x22\x27]/g,c=>ESC_MAP[c
 const fmt=n=>new Intl.NumberFormat('ms-MY',{style:'currency',currency:'MYR'}).format(Number(n||0));
 const shortDate=s=>s?String(s).slice(0,16).replace('T',' \u00b7 '):'-';
 const state={idToken:'',refreshToken:'',self:null,profile:null,view:'home',events:[],members:[],event:null,roster:[],orders:[],chat:[],found:null,merchEvent:null,merchItems:[],authMode:'login',ready:false};
-const MENU=[['home','\u2302','Home'],['events','\u25a6','Events'],['members','\u2659','Members'],['spot','\u25ce','Spot Me'],['chat','\u260f','Chat'],['admin','\u2699','Admin']];
+const MENU=[['home','\u2302','Home'],['events','\u25a6','Events'],['store','\u25c8','PZC Store'],['members','\u2659','Members'],['spot','\u25ce','Spot Me'],['chat','\u260f','Chat'],['admin','\u2699','Admin']];
 function toast(t){$('toast').textContent=t;clearTimeout(window._toastTimer);window._toastTimer=setTimeout(()=>$('toast').textContent='',4200);}
 function busy(label='Memuatkan...'){$('screen').innerHTML=`<div class="panel muted">${esc(label)}</div>`;}
 function api(name,payload={}){return new Promise((resolve,reject)=>{
@@ -83,7 +83,7 @@ async function go(view){state.view=view;renderNav();$('pageTitle').textContent=M
  if(!state.self)return renderAuth();
  if(!isApproved()&&view!=='home'&&view!=='profile'){toast('Lengkapkan pendaftaran ahli dan tunggu kelulusan.');view='home';state.view=view;renderNav();}
  busy();try{
- if(view==='home')await home();else if(view==='events')await events();else if(view==='event')await eventDetail(state.event?.id);
+ if(view==='home')await home();else if(view==='events')await events();else if(view==='store')await storeFront();else if(view==='event')await eventDetail(state.event?.id);
  else if(view==='members')await members();else if(view==='spot')spot();else if(view==='profile')await profile();
  else if(view==='gallery')await mediaAlbums();else if(view==='chat')await chat();else if(view==='admin')await admin();else if(view==='adminEvent')await adminEvent(state.event?.id);
  else if(view==='adminRoster')await adminRoster(state.event?.id);else if(view==='adminOrders')await adminOrders(state.event?.id);
@@ -137,6 +137,12 @@ function eventCard(e){return `<article class="panel eventCard"><div class="row b
  <div class="actions"><button class="btn" data-act="event" data-id="${esc(e.id)}">Lihat Event</button></div></article>`;}
 async function events(){const all=await api('events');state.events=all;$('screen').innerHTML=`<div class="panel hero"><div class="kicker">MULTI-EVENT MANAGEMENT</div><h2>Many Journeys, One Crew</h2><p class="muted">Ride, dinner, TTS, merchandise dan aktiviti komuniti semuanya dalam satu hub.</p></div>
  ${all.length?`<div class="grid">${all.map(eventCard).join('')}</div>`:'<div class="empty">Tiada event lagi.</div>'}`;}
+async function storeFront(){
+ const all=await api('events');
+ const sales=all.filter(e=>e.type==='MERCH');
+ $('screen').innerHTML=`<section class="panel hero"><div class="kicker">PZC OFFICIAL MERCHANDISE</div><h2>PZC Store</h2><p>Tempah merchandise komuniti dan semak koleksi mengikut batch. Harga setiap item ditetapkan oleh Admin.</p></section>
+ ${sales.length?`<div class="grid">${sales.map(e=>`<article class="panel eventCard"><div class="row between"><span class="badge">MERCH</span><span class="badge ${e.status==='PUBLISHED'?'':'pending'}">${esc(e.status)}</span></div><h3>${esc(e.title)}</h3><p class="small muted">${esc(e.description||'Koleksi PZC')}</p><button class="btn" data-act="event" data-id="${esc(e.id)}">Lihat Produk &amp; Tempah</button></article>`).join('')}</div>`:'<section class="panel"><p class="muted">Kedai belum mempunyai batch merchandise. Admin boleh mencipta event jenis MERCH dan memasukkan harga setiap produk.</p></section>'}`;
+}
 async function eventDetail(id){if(!id)return events();const d=await api('event',{id});state.event=d.event;
  const e=d.event,p=state.profile||await api('profile');state.profile=p;
  const active=e.status==='PUBLISHED';const isRide=e.type==='RIDE';const isMerch=e.type==='MERCH';
@@ -1022,7 +1028,7 @@ startup().catch(e=>{try{renderAuth();toast(e.message||String(e));}catch(x){showF
   // Use HTTPS URLs that can load as ordinary <img> without login.
   const MEDIA = Object.freeze({
     putrajayaPhoto: 'https://upload.wikimedia.org/wikipedia/commons/8/84/Iron_mosque_Putrajaya_at_night_2011.jpg',
-    zontes368gPhoto: 'https://github.com/matjeri99/PZCHub/blob/main/assets/IMG20261031134636.jpg'
+    zontes368gPhoto: 'https://www.sharpon.com/Tayoimg/DRP/DRPProducts/DRPPageIMG/2025368G/2025368G_004N2.jpg'
   });
 
   const style = document.createElement('style');
