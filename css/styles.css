@@ -141,3 +141,20 @@ label{display:block;color:#e1eee4;font-size:13px;font-weight:700;margin-bottom:5
   }
 }
 .pzc-club-logo{width:68px;height:68px;object-fit:contain;border-radius:14px;background:#080a09;border:1px solid #435248;flex-shrink:0}.brand{padding-bottom:20px}@media(max-width:800px){.topbar{background:linear-gradient(90deg,#0c1f16,#173025)}}
+/* Rider ICE v1.0 UAT addon */
+.ice-promo,.ice-head,.ice-qr-card{background:linear-gradient(125deg,#092319,#103d26 70%,#1d5326);border:1px solid #7ab63d;border-radius:20px;padding:24px;margin:0 0 18px;color:#f8fff6}
+.ice-promo{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.ice-promo h2,.ice-head h2{margin:8px 0;font-weight:900;font-size:clamp(23px,4vw,36px);color:#c0ff48}
+.ice-promo p,.ice-head p{max-width:620px;color:#d5e8da}
+.ice-eyebrow{color:#b8ff4b;letter-spacing:2px;font-size:12px;font-weight:800}
+.ice-shell{max-width:850px;margin:auto}
+.ice-qr-card{text-align:center}
+.ice-qr-card .actions{justify-content:center;flex-wrap:wrap}
+.ice-ready{font-size:29px;font-weight:900;color:#b6ff4a}
+#iceQr{display:flex;justify-content:center;margin:18px auto;background:#fff;border-radius:16px;padding:12px;width:max-content;max-width:100%}
+#iceQr img{display:block}
+.ice-form-panel{border:1px solid #557d47}
+.ice-check{display:flex;align-items:flex-start;gap:10px;background:#173a29;border:1px solid #4f765b;border-radius:12px;padding:15px;margin:14px 0;line-height:1.55}
+.ice-check input{margin-top:4px;flex-shrink:0}
+.ice-form-panel textarea{min-height:70px;resize:vertical}
+@media(max-width:640px){.ice-promo{padding:17px}.ice-qr-card,.ice-head{padding:18px}}
