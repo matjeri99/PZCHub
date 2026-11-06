@@ -58,7 +58,7 @@ Fail baharu `js/rider-ice.js`, serta perubahan pada `index.html`, `css/styles.cs
 - Data kesihatan dalam Sheets ialah data sensitif. Akses editor Sheets, audit akses, polisi retensi dan persetujuan ahli mesti diperketat sebelum go-live.
 - Halaman QR awam sengaja mendedahkan telefon waris; ahli mesti faham bahawa sesiapa yang memegang/merakam QR boleh melihatnya. Pautan yang ditarik balik akan terhenti selepas permintaan berikutnya, tertakluk pada cache pelayar.
 - Maklumat kumpulan darah tidak boleh digunakan sebagai pengganti ujian padanan darah atau keputusan klinikal.
-
+UAT DEPLOY TRIGGER: 06 November 2026 - Rider ICE staging branch.
 ## Jurnal pembangunan
 
 **06/11/2026** — Dua ZIP kod sumber diterima. Audit backend 20 fail, frontend 17 entri ZIP. Dapatan: Firebase Auth, `MEMBERS`, `PZC_Gateway`, API satu pintu. Ditambah modul Rider ICE asing, empat aksi RPC, halaman QR awam dan interface Home/Profile/ICE, cetakan UAT. Status **kod prototaip siap untuk semakan**, bukan deployment atau kelulusan produksi. Persetujuan Senate terdahulu 4/7 respons, tiga belum respons bertulis.
