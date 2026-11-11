@@ -141,3 +141,210 @@ label{display:block;color:#e1eee4;font-size:13px;font-weight:700;margin-bottom:5
   }
 }
 .pzc-club-logo{width:68px;height:68px;object-fit:contain;border-radius:14px;background:#080a09;border:1px solid #435248;flex-shrink:0}.brand{padding-bottom:20px}@media(max-width:800px){.topbar{background:linear-gradient(90deg,#0c1f16,#173025)}}
+
+
+/* ============================================================================
+   PZC HUB — CINEMATIC HERO WOW v1.0 | 12 NOV 2026
+   CSS ONLY: Preserve PZC Home, Firebase login, Hero Photo Manager, CTAs, RPC,
+   Admin Centre, Rider ICE UAT, and all other routes. This ONLY applies to
+   section.panel.hero.pzc-v3-hero on approved members' Home screens.
+   Full-bleed community photo blends beneath the text instead of a right card.
+   !important required because app.js injects PZC v3 styles later at runtime.
+   ============================================================================ */
+
+/* Wide integrated banner, and readable large title. */
+#screen section.panel.hero.pzc-v3-hero {
+  position:relative !important;
+  isolation:isolate !important;
+  overflow:hidden !important;
+  min-height:clamp(430px,35vw,565px) !important;
+  padding:0 !important;
+  border-radius:26px !important;
+  border:1px solid rgba(167,240,94,.58) !important;
+  background:#071c13 !important;
+  box-shadow:0 18px 42px rgba(0,0,0,.32),0 0 0 1px rgba(190,255,80,.10) !important;
+}
+
+/* Existing Hero Manager img now becomes the FULL-BLEED photo. No new API. */
+#screen .pzc-v3-hero .pzc-v3-hero-bike {
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  top:0 !important;
+  right:0 !important;
+  left:0 !important;
+  bottom:0 !important;
+  z-index:0 !important;
+  overflow:hidden !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+#screen .pzc-v3-hero .pzc-v3-hero-bike img {
+  display:block;
+  width:100% !important;
+  height:100% !important;
+  max-height:none !important;
+  object-fit:cover !important;
+  object-position:72% center !important;
+  /* Photo fades naturally beneath PZC Hub copy. */
+  -webkit-mask-image:linear-gradient(90deg,
+    transparent 0%, rgba(0,0,0,.20) 18%, rgba(0,0,0,.72) 37%, #000 62%);
+  mask-image:linear-gradient(90deg,
+    transparent 0%, rgba(0,0,0,.20) 18%, rgba(0,0,0,.72) 37%, #000 62%);
+}
+
+/* Dark gradient is ABOVE image, but BELOW interactive copy and buttons. */
+#screen .pzc-v3-hero::before {
+  content:"";
+  position:absolute !important;
+  inset:0 !important;
+  z-index:1 !important;
+  pointer-events:none !important;
+  background:
+    linear-gradient(90deg,
+      rgba(4,24,16,.98) 0%,
+      rgba(4,24,16,.94) 22%,
+      rgba(4,24,16,.70) 40%,
+      rgba(4,24,16,.28) 58%,
+      rgba(4,24,16,.05) 82%),
+    linear-gradient(0deg,rgba(2,16,10,.70) 0%,transparent 30%) !important;
+}
+#screen .pzc-v3-hero .pzc-v3-hero-backdrop {
+  z-index:-1 !important;
+  opacity:.38 !important;
+}
+#screen .pzc-v3-hero .pzc-v3-hero-bike::after {
+  position:absolute;
+  inset:0;
+  z-index:1 !important;
+  pointer-events:none !important;
+  background:linear-gradient(0deg,rgba(3,18,13,.43),transparent 35%) !important;
+}
+#screen .pzc-v3-hero .pzc-v3-hero-copy {
+  position:relative !important;
+  z-index:2 !important;
+  width:min(68%,760px) !important;
+  min-width:0 !important;
+  padding:clamp(34px,4.2vw,70px) clamp(25px,4vw,70px) 82px !important;
+  text-shadow:0 3px 15px rgba(0,0,0,.23);
+}
+#screen .pzc-v3-hero .pzc-v3-hero-wordmark {
+  font-size:clamp(55px,6vw,94px) !important;
+  line-height:.98 !important;
+  margin:15px 0 20px !important;
+  letter-spacing:-.055em !important;
+  text-shadow:0 6px 24px #000a !important;
+}
+#screen .pzc-v3-hero h2 {
+  font-size:clamp(28px,3.6vw,54px) !important;
+  max-width:690px !important;
+  line-height:1.08 !important;
+  margin-bottom:19px !important;
+  text-shadow:0 5px 25px #000a !important;
+}
+#screen .pzc-v3-hero p {
+  max-width:620px !important;
+  font-size:clamp(13px,1.25vw,17px) !important;
+  line-height:1.62 !important;
+  color:#e5eee6 !important;
+}
+#screen .pzc-v3-hero .actions {
+  position:relative;
+  z-index:3;
+  margin-top:22px !important;
+  gap:10px !important;
+}
+#screen .pzc-v3-hero .actions .btn {
+  min-height:43px;
+  border-radius:13px;
+}
+/* Hide old floating card label; keep photo credit dynamically managed. */
+#screen .pzc-v3-hero .pzc-v3-hero-bike-label { display:none !important; }
+#screen .pzc-v3-hero .pzc-v3-hero-credit {
+  z-index:3 !important;
+  left:clamp(25px,4vw,70px) !important;
+  bottom:14px !important;
+  max-width:75%;
+  color:#d0decc !important;
+  text-shadow:0 2px 8px #0009;
+}
+
+/* Tablet: slightly stronger fade and allow full-width title/copy. */
+@media (min-width:801px) and (max-width:1080px) {
+  #screen .pzc-v3-hero .pzc-v3-hero-copy { width:75% !important; }
+  #screen .pzc-v3-hero::before {
+    background:linear-gradient(90deg,rgba(4,24,16,.99) 0%,
+      rgba(4,24,16,.90) 26%,rgba(4,24,16,.48) 61%,
+      rgba(4,24,16,.06) 95%) !important;
+  }
+}
+
+/* Mobile: text on top; cinematic ride photo visible in lower area. */
+@media (max-width:800px) {
+  #screen section.panel.hero.pzc-v3-hero {
+    min-height:560px !important;
+    border-radius:20px !important;
+  }
+  #screen .pzc-v3-hero .pzc-v3-hero-copy {
+    width:100% !important;
+    padding:25px 19px 250px !important;
+  }
+  #screen .pzc-v3-hero .pzc-v3-hero-bike {
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    border-radius:0 !important;
+  }
+  #screen .pzc-v3-hero .pzc-v3-hero-bike img {
+    object-position:70% center !important;
+    -webkit-mask-image:linear-gradient(180deg,
+      transparent 0%,rgba(0,0,0,.12) 31%,rgba(0,0,0,.90) 63%,#000 100%);
+    mask-image:linear-gradient(180deg,
+      transparent 0%,rgba(0,0,0,.12) 31%,rgba(0,0,0,.90) 63%,#000 100%);
+  }
+  #screen .pzc-v3-hero::before {
+    background:linear-gradient(180deg,
+      rgba(4,24,16,.99) 0%,rgba(4,24,16,.96) 35%,
+      rgba(4,24,16,.70) 56%,rgba(4,24,16,.18) 85%,
+      rgba(4,24,16,.48) 100%) !important;
+  }
+  #screen .pzc-v3-hero .pzc-v3-hero-wordmark {
+    font-size:clamp(44px,12vw,64px) !important;
+    margin:10px 0 14px !important;
+  }
+  #screen .pzc-v3-hero h2 {
+    font-size:clamp(25px,6.2vw,36px) !important;
+    margin-bottom:15px !important;
+  }
+  #screen .pzc-v3-hero p { font-size:13px !important; }
+  #screen .pzc-v3-hero .actions {
+    margin-top:16px !important;
+    gap:8px !important;
+  }
+  #screen .pzc-v3-hero .actions .btn {
+    font-size:12px !important;
+    padding:9px 11px !important;
+    min-height:40px;
+  }
+  #screen .pzc-v3-hero .pzc-v3-hero-credit {
+    left:19px !important;
+    bottom:10px !important;
+    font-size:9px !important;
+  }
+}
+@media (max-width:360px) {
+  #screen .pzc-v3-hero .pzc-v3-hero-copy {
+    padding:22px 15px 235px !important;
+  }
+  #screen .pzc-v3-hero .pzc-v3-hero-wordmark {
+    font-size:43px !important;
+  }
+  #screen .pzc-v3-hero .actions .btn {
+    flex:1 1 45%;
+    font-size:11px !important;
+  }
+  #screen .pzc-v3-hero .pzc-v3-hero-credit { left:15px !important; }
+}
