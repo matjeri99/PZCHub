@@ -1,0 +1,41 @@
+/* PZC Hub Social Sharing v1.0: add-on styles only, no changes to login/nav. */
+.pzc-share-trigger {
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:9px 12px;border:1px solid rgba(224,192,108,.58);
+  border-radius:999px;background:linear-gradient(130deg,#d8ad4c,#f1d187);
+  color:#09221a;font:700 13px/1.1 system-ui,sans-serif;
+  white-space:nowrap;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.14);
+  flex-shrink:0;margin-left:auto;margin-right:10px;
+}
+.pzc-share-trigger:hover{filter:brightness(1.06)}
+.pzc-event-share {
+  display:inline-flex;gap:6px;align-items:center;justify-content:center;
+  min-height:36px;padding:8px 12px;border-radius:11px;
+  border:1px solid rgba(229,188,99,.46);background:#133329;
+  color:#f8e9c9;font:700 12px/1.1 system-ui,sans-serif;cursor:pointer;
+}
+.pzc-event-share:hover{background:#215140}
+.pzc-event-share-detail{margin-top:14px}
+.pzc-share-dialog {
+  width:min(92vw,440px);max-width:440px;max-height:90dvh;overflow:auto;
+  box-sizing:border-box;padding:22px;border-radius:20px;
+  background:linear-gradient(160deg,#102b22,#081911);color:#f7faf7;
+  border:1px solid rgba(232,193,103,.4);box-shadow:0 24px 70px rgba(0,0,0,.45);
+  font-family:system-ui,-apple-system,sans-serif;
+}
+.pzc-share-dialog::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(3px)}
+.pzc-share-dialog-header{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pzc-share-dialog h2{font-size:22px;line-height:1.2;margin:0;color:#fff}
+.pzc-share-dialog p{font-size:13px;line-height:1.5;color:#b8cbc3}
+.pzc-share-dialog .pzc-share-close{padding:6px 10px;border:0;background:#244238;color:#fff;border-radius:9px;cursor:pointer;font-size:18px}
+.pzc-share-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:18px 0}
+.pzc-share-options button{cursor:pointer;border:1px solid #3a5b4f;background:#193b30;color:#fff;border-radius:11px;padding:13px 8px;font:650 13px system-ui,sans-serif}
+.pzc-share-options button:focus-visible,.pzc-share-trigger:focus-visible,.pzc-event-share:focus-visible{outline:3px solid #f9d278;outline-offset:2px}
+.pzc-share-options button:hover{background:#2a5645}
+.pzc-share-options .pzc-native-share{grid-column:1/-1;background:#d8ad4c;color:#14291d;border-color:#d8ad4c}
+.pzc-share-note{font-size:11px!important;border-top:1px solid #315045;padding-top:10px}
+@media(max-width:560px){
+  .pzc-share-trigger{font-size:0;width:40px;height:40px;padding:0;margin-left:6px;margin-right:6px}
+  .pzc-share-trigger .pzc-share-icon{font-size:21px}
+  .pzc-share-dialog{padding:18px}
+}
