@@ -1,0 +1,147 @@
+/*
+ * PZC HUB — Hero Mobile Stacked v1.0 (2026-11-12)
+ * Purpose: keep the promotional Coming Event poster fully visible on mobile.
+ * Desktop: no changes. Hub login/API/Event Builder: no changes.
+ * Load this AFTER css/styles.css in the root index.html.
+ * Only affects approved-member Home Hero (.pzc-v3-hero).
+ */
+@media (max-width: 800px) {
+  /* Two genuine sections: member welcome above, complete event poster below. */
+  #screen section.panel.hero.pzc-v3-hero {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    border-radius: 20px !important;
+    background: #092017 !important;
+  }
+
+  /* No fade/mask on the actual promotional artwork. */
+  #screen section.panel.hero.pzc-v3-hero::before,
+  #screen .pzc-v3-hero .pzc-v3-hero-bike::after {
+    content: none !important;
+    background: none !important;
+  }
+  #screen .pzc-v3-hero .pzc-v3-hero-backdrop {
+    display: none !important;
+  }
+
+  #screen .pzc-v3-hero .pzc-v3-hero-copy {
+    position: relative !important;
+    order: 0 !important;
+    flex: none !important;
+    width: 100% !important;
+    max-width: none !important;
+    padding: 22px 18px 19px !important;
+    background: linear-gradient(155deg, #092016 0%, #0b281d 100%) !important;
+    text-shadow: none !important;
+  }
+  #screen .pzc-v3-hero .pzc-v3-hero-copy .kicker {
+    font-size: clamp(9px, 2.45vw, 11px) !important;
+    line-height: 1.45 !important;
+    letter-spacing: 1.15px !important;
+  }
+  #screen .pzc-v3-hero .pzc-v3-hero-wordmark {
+    margin: 10px 0 12px !important;
+    font-size: clamp(43px, 11vw, 57px) !important;
+    line-height: 1 !important;
+    letter-spacing: -2px !important;
+  }
+  #screen .pzc-v3-hero h2 {
+    font-size: clamp(24px, 6.1vw, 32px) !important;
+    line-height: 1.13 !important;
+    margin: 0 0 12px !important;
+  }
+  #screen .pzc-v3-hero p {
+    font-size: 12.5px !important;
+    line-height: 1.5 !important;
+    margin: 0 0 13px !important;
+    max-width: none !important;
+  }
+  #screen .pzc-v3-hero .actions {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    margin-top: 12px !important;
+  }
+  #screen .pzc-v3-hero .actions .btn {
+    min-width: 0 !important;
+    width: 100% !important;
+    min-height: 42px !important;
+    padding: 9px 7px !important;
+    font-size: 12px !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+  #screen .pzc-v3-hero .actions .btn:nth-child(3) {
+    grid-column: 1 / -1 !important;
+  }
+
+  /* Poster: natural landscape frame, absolutely NO crop on any phone width. */
+  #screen .pzc-v3-hero .pzc-v3-hero-bike {
+    position: relative !important;
+    order: 1 !important;
+    inset: auto !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    display: block !important;
+    flex: none !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-top: 1px solid rgba(190,245,110,.25) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #06160f !important;
+    overflow: hidden !important;
+  }
+  #screen .pzc-v3-hero .pzc-v3-hero-bike img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    filter: none !important;
+  }
+
+  #screen .pzc-v3-hero .pzc-v3-hero-credit {
+    position: relative !important;
+    order: 2 !important;
+    z-index: 1 !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    padding: 8px 17px 11px !important;
+    color: #aac5ae !important;
+    font-size: 9px !important;
+    line-height: 1.35 !important;
+    background: #092017 !important;
+    text-shadow: none !important;
+  }
+}
+
+/* Extra narrow devices: buttons remain tappable, no hidden artwork. */
+@media (max-width: 360px) {
+  #screen .pzc-v3-hero .pzc-v3-hero-copy { padding: 19px 14px 16px !important; }
+  #screen .pzc-v3-hero .pzc-v3-hero-wordmark { font-size: 41px !important; }
+  #screen .pzc-v3-hero .actions .btn { font-size: 11px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #screen .pzc-v3-hero .actions .btn { transition: none !important; }
+}
