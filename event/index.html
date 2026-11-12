@@ -19,14 +19,26 @@
 <section id="detail" class="details-panel hidden"><article class="panel"><img id="eventPoster" class="poster" alt="Poster acara"><div class="eyebrow" style="margin-top:19px">JOM TURUN BERSAMA KAMI</div><h2 id="eventTitle"></h2><div class="meta" id="eventMeta"></div><p id="eventSummary" style="line-height:1.7;color:#c8dacb"></p><p class="note">Keselamatan & privasi: laluan penuh, nombor telefon petugas, Manifest dan butiran peribadi peserta hanya dipaparkan kepada pihak dibenarkan.</p></article><aside class="panel join"><div class="join-top">JEMPUTAN TERBUKA KEPADA SAHABAT RIDER</div><h2>Jom kita ride sama-sama!</h2><p>Dah ahli PZC? Mudah, terus masuk menggunakan akaun sedia ada. Baru nak berkenalan? Kami pun alu-alukan tetamu. Mohon dulu, nanti penganjur semak.</p><div class="row-buttons"><a id="memberJoin" class="action" href="/" style="flex:1">✓ Saya Ahli PZC</a><button id="guestJoin" class="action alt" type="button" style="flex:1">+ Mohon Jadi Tetamu</button></div><p class="benefit">Ahli menggunakan profil yang sudah ada. Tetamu hanya memohon untuk event ini, bukan mendaftar keahlian secara automatik.</p><hr style="border:0;border-top:1px solid #395944"><div class="row-buttons"><button id="shareBtn" class="action alt" type="button">↗ Kongsi Event</button><a href="/event/" class="action alt">Lihat Event Lain</a></div></aside></section>
 <footer><span>PZC HUB · PUTRAJAYA ZONTES COMMUNITY</span><span>ONE RIDE · ONE CREW · MANY JOURNEYS</span></footer>
 </main>
-<dialog id="guestDialog" aria-labelledby="guestTitle"><div class="modal-head"><h2 id="guestTitle">Mohon Join Sebagai Tetamu</h2><button type="button" class="close" data-close aria-label="Tutup">×</button></div><p class="muted">Jom kenal geng PZC! Isi maklumat asas dan kami akan semak permohonan. Ini bukan pengesahan tempat.</p><form id="guestForm"><label>Nama penuh *<input required name="name" minlength="3" maxlength="120" autocomplete="name"></label><label>No. WhatsApp *<input required type="tel" name="phone" minlength="9" maxlength="24" placeholder="60123456789" autocomplete="tel"></label><label>Model motosikal *<input required name="motorcycle" minlength="2" maxlength="100" placeholder="Zontes 368G"></label><label>Pillion<select name="pillion"><option value="0">Tiada</option><option value="1">1 orang</option><option value="2">2 orang</option></select></label><label>Pesanan (pilihan)<textarea name="message" rows="2" maxlength="280"></textarea></label><label class="checkbox"><input type="checkbox" id="consent" required><span>Saya bersetuju maklumat ini digunakan untuk mengurus permohonan menyertai event berkenaan.</span></label><div id="turnstileWidget"></div><button class="action wide" id="submitGuest" type="submit">Hantar Permohonan</button></form><p id="guestResult" role="status" aria-live="polite"></p></dialog>
+<dialog id="guestDialog" aria-labelledby="guestTitle"><div class="modal-head"><h2 id="guestTitle">🏍️ Mohon Join Sebagai Tetamu</h2><button type="button" class="close" data-close aria-label="Tutup">×</button></div>
+<p class="muted" style="line-height:1.6">Jom kenal geng PZC! Isi maklumat ringkas di bawah. Permohonan akan disemak penganjur terlebih dahulu.</p>
+<p class="note" style="margin:7px 0"><b>Event:</b> <span id="guestEventName">PZC Ride</span><br>Tiada keperluan daftar akaun PZC.</p>
+<form id="guestForm" autocomplete="on">
+<label>Nama / Callsign *<input required name="name" minlength="3" maxlength="120" autocomplete="name" placeholder="Contoh: Abang Mat"></label>
+<label>Nombor WhatsApp *<input required type="tel" inputmode="tel" name="phone" minlength="9" maxlength="24" placeholder="Contoh: 0123456789" autocomplete="tel"></label>
+<label>Motosikal *<input required name="motorcycle" minlength="2" maxlength="100" placeholder="Contoh: Zontes 368G"></label>
+<label>Jumlah pembonceng<select name="pillion"><option value="0">Solo (tiada pillion)</option><option value="1">Pillion (+1)</option></select></label>
+<label>Catatan (pilihan)<textarea name="message" rows="2" maxlength="280" placeholder="Contoh: Kali pertama join PZC"></textarea></label>
+<label class="checkbox"><input type="checkbox" id="consent" required><span>Saya bersetuju maklumat di atas digunakan oleh penganjur untuk mengurus permohonan event ini sahaja. Permohonan tidak menjamin penyertaan.</span></label>
+<div id="turnstileWidget" aria-label="Pengesahan anti-spam"></div>
+<button class="action wide" id="submitGuest" type="submit">Hantar Permohonan</button>
+</form><p id="guestResult" role="status" aria-live="polite"></p></dialog>
 <dialog id="shareDialog" class="share-pop"><div class="modal-head"><h2>Kongsi Event</h2><button type="button" class="close" data-close aria-label="Tutup">×</button></div><p id="shareText" class="muted"></p><div class="share-links"><button class="action" data-share="native" type="button">↗ Kongsi dari telefon</button><button class="action alt" data-share="whatsapp" type="button">WhatsApp</button><button class="action alt" data-share="facebook" type="button">Facebook</button><button class="action alt" data-share="telegram" type="button">Telegram</button><button class="action alt" data-share="copy" type="button">Salin Link</button></div></dialog>
 <script>
 /* CONFIG — isi selepas Worker + Turnstile sudah aktif; JANGAN letak sebarang rahsia di sini. */
 const PZC_PUBLIC_CONFIG={
   apiBase:'https://pzc-public-events.matjeri99.workers.dev',
   shareBase:'https://pzc-public-events.matjeri99.workers.dev',
-  turnstileSiteKey:''     // sitekey PUBLIC Cloudflare Turnstile; BUKAN secret
+  turnstileSiteKey:'0x4AAAAAAF9xnjtYAaXS5Kls' // Site Key awam sahaja; BUKAN Secret Key
 };
 </script>
 <script>
@@ -69,6 +81,7 @@ function showDetail(e){
   $('#eventMeta').innerHTML=`<span>📅 ${esc(fmt(e.start_date))}</span>${e.location?`<span>📍 ${esc(e.location)}</span>`:''}<span>🏍️ ${esc(e.type||'EVENT')}</span>`;
   $('#memberJoin').href='/?event='+enc(e.id);
   if(!e.guest_enabled){$('#guestJoin').disabled=true;$('#guestJoin').textContent='Permohonan tetamu ditutup';}
+  else if(!validSiteKey()){$('#guestJoin').disabled=true;$('#guestJoin').textContent='Pendaftaran tetamu dalam persediaan';}
   document.title=e.title+' | Putrajaya Zontes Community';
   $('#guestJoin').addEventListener('click',guestOpen);
   $('#shareBtn').addEventListener('click',()=>share(current));
@@ -84,24 +97,59 @@ document.querySelectorAll('[data-share]').forEach(b=>b.addEventListener('click',
   const dest=platform==='whatsapp'?'https://wa.me/?text='+enc(text):platform==='facebook'?'https://www.facebook.com/sharer/sharer.php?u='+enc(link):'https://t.me/share/url?url='+enc(link)+'&text='+enc(current.title);
   window.open(dest,'_blank','noopener,noreferrer');
 }));
+function validSiteKey(){return /^[A-Za-z0-9_-]{12,150}$/.test(String(cfg.turnstileSiteKey||''))&&!String(cfg.turnstileSiteKey).startsWith('PASTE_');}
+function guestMessage(message,ok=false){const e=$('#guestResult');e.className=ok?'success':'alert';e.textContent=message;}
 function initTurnstile(){
-  if(!cfg.turnstileSiteKey){$('#guestResult').textContent='Borang belum diaktifkan: Turnstile belum dikonfigurasi.';$('#submitGuest').disabled=true;return;}
+  if(!validSiteKey()){guestMessage('Borang belum diaktifkan: Turnstile Site Key perlu diisi.');$('#submitGuest').disabled=true;return;}
   if(widgetId!==null)return;
+  if(window.turnstile){renderTurnstile();return;}
   const script=document.createElement('script');script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';script.async=true;
-  script.onload=()=>{widgetId=window.turnstile.render('#turnstileWidget',{sitekey:cfg.turnstileSiteKey,theme:'dark',callback:token=>{turnstileToken=token;},'expired-callback':()=>{turnstileToken='';},'error-callback':()=>{turnstileToken='';}});};
-  script.onerror=()=>{$('#guestResult').textContent='Pengesahan anti-spam tidak dapat dimuatkan.';};
+  script.onload=renderTurnstile;
+  script.onerror=()=>{guestMessage('Pengesahan keselamatan gagal dimuatkan. Sila cuba semula.');$('#submitGuest').disabled=true;};
   document.head.appendChild(script);
 }
-function guestOpen(){if(!current?.guest_enabled)return;$('#guestResult').textContent='';$('#guestDialog').showModal();initTurnstile();}
+function renderTurnstile(){
+  try{
+    widgetId=window.turnstile.render('#turnstileWidget',{
+      sitekey:cfg.turnstileSiteKey,theme:'dark',
+      callback:token=>{turnstileToken=token;},
+      'expired-callback':()=>{turnstileToken='';},
+      'error-callback':()=>{turnstileToken='';guestMessage('Pengesahan anti-spam gagal. Cuba lagi.');}
+    });
+  }catch(_){widgetId=null;guestMessage('Konfigurasi Turnstile tidak sah. Hubungi penganjur.');$('#submitGuest').disabled=true;}
+}
+function guestOpen(){
+  if(!current?.guest_enabled||!validSiteKey())return;
+  $('#guestEventName').textContent=current.title||'PZC Ride';
+  $('#guestResult').textContent='';$('#guestResult').className='';
+  $('#guestDialog').showModal();initTurnstile();
+}
 $('#guestForm').addEventListener('submit',async ev=>{
-  ev.preventDefault();if(!current||!apiBase||!cfg.turnstileSiteKey){$('#guestResult').textContent='Borang belum diaktifkan.';return;}
-  if(!turnstileToken){$('#guestResult').textContent='Selesaikan pengesahan anti-spam dahulu.';return;}
-  const f=new FormData(ev.currentTarget);const payload={event_id:current.id,name:f.get('name'),phone:f.get('phone'),motorcycle:f.get('motorcycle'),pillion:Number(f.get('pillion')||0),message:f.get('message'),consent:$('#consent').checked,turnstile_token:turnstileToken};
-  const btn=$('#submitGuest');btn.disabled=true;btn.textContent='Menghantar...';
-  try{const res=await fetch(apiBase+'/v1/guest-requests',{method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const j=await res.json();if(!res.ok||!j.ok)throw Error(j.error||'Permohonan gagal');
-    $('#guestForm').classList.add('hidden');$('#guestResult').className='success';$('#guestResult').textContent='Terima kasih! Permohonan diterima untuk semakan penganjur. Rujukan: '+j.data.reference+' (simpan nombor ini).';
-  }catch(e){$('#guestResult').className='alert';$('#guestResult').textContent=e.message||'Gagal menghantar permohonan';if(window.turnstile&&widgetId!==null)window.turnstile.reset(widgetId);turnstileToken='';}
-  finally{btn.disabled=false;btn.textContent='Hantar Permohonan';}
+  ev.preventDefault();
+  if(!current?.guest_enabled||!apiBase||!validSiteKey()){guestMessage('Borang tidak tersedia.');return;}
+  if(!turnstileToken){guestMessage('Selesaikan pengesahan anti-spam dahulu.');return;}
+  const f=new FormData(ev.currentTarget);
+  const payload={
+    event_id:current.id,name:String(f.get('name')||'').trim(),phone:String(f.get('phone')||'').trim(),
+    motorcycle:String(f.get('motorcycle')||'').trim(),pillion:Number(f.get('pillion')||0),
+    message:String(f.get('message')||'').trim(),consent:$('#consent').checked,turnstile_token:turnstileToken
+  };
+  const btn=$('#submitGuest');if(btn.disabled)return;
+  btn.disabled=true;btn.textContent='Menghantar...';
+  try{
+    const res=await fetch(apiBase+'/v1/guest-requests',{
+      method:'POST',mode:'cors',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload),cache:'no-store'
+    });
+    const j=await res.json();if(!res.ok||!j.ok)throw Error(j.error||'Permohonan gagal');
+    if(!j.data?.reference)throw Error('Tiada nombor rujukan diterima');
+    $('#guestForm').classList.add('hidden');
+    guestMessage('Terima kasih! Permohonan telah diterima untuk SEMAKAN penganjur. Nombor rujukan: '+j.data.reference+'. Simpan nombor ini. Ini bukan pengesahan tempat.',true);
+  }catch(error){
+    guestMessage(error?.message||'Gagal menghantar permohonan. Sila cuba lagi.');
+    try{if(window.turnstile&&widgetId!==null)window.turnstile.reset(widgetId);}catch(_){}
+    turnstileToken='';
+  }finally{btn.disabled=false;btn.textContent='Hantar Permohonan';}
 });
 load();
 </script></body></html>
